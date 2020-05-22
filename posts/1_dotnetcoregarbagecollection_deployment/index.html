@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &amp;lt;PropertyGroup&amp;gt; &amp;lt;ServerGarbageCollection&amp;gt;false&amp;lt;/ServerGarbageCollection&amp;gt; &amp;lt;/PropertyGroup&amp;gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
+That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
+During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp;amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &amp;ndash; Part 0 and Running with Server GC &amp;ndash; Part 1." />
+<meta name="keywords" content="blog computer science software engineering, asp.net core, docker, deployment, devops, optimizations" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/" />
+
+
+    <title>
+        
+            ASP.NET Core garbage collection: Deployment in containerized environments :: Marios Kanakis  — Software Engineer
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.dede02da9537a98158079c023e83573e18127834838ef08172acce888341a797.css">
+
+
+
+
+
+
+<meta itemprop="name" content="ASP.NET Core garbage collection: Deployment in containerized environments">
+<meta itemprop="description" content="TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &lt;PropertyGroup&gt; &lt;ServerGarbageCollection&gt;false&lt;/ServerGarbageCollection&gt; &lt;/PropertyGroup&gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
+That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
+During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &ndash; Part 0 and Running with Server GC &ndash; Part 1.">
+<meta itemprop="datePublished" content="2020-05-21T22:36:10&#43;02:00" />
+<meta itemprop="dateModified" content="2020-05-21T22:36:10&#43;02:00" />
+<meta itemprop="wordCount" content="424">
+<meta itemprop="image" content="https://mkanakis.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="asp.net core,docker,deployment,devops,optimizations," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mkanakis.github.io/"/>
+
+<meta name="twitter:title" content="ASP.NET Core garbage collection: Deployment in containerized environments"/>
+<meta name="twitter:description" content="TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &lt;PropertyGroup&gt; &lt;ServerGarbageCollection&gt;false&lt;/ServerGarbageCollection&gt; &lt;/PropertyGroup&gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
+That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
+During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &ndash; Part 0 and Running with Server GC &ndash; Part 1."/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-05-21 22:36:10 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">rm -rf *</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://mkanakis.github.io/about">About</a></li><li><a href="https://mkanakis.github.io/posts">Blog</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/">ASP.NET Core garbage collection: Deployment in containerized environments</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h5 id="tldr-in-containerized-environments-try-disabling-servergarbagecollection-and-check-whether-there-is-a-notable-performance-boost-to-do-so-alter-your-project-file-with-the-following">TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following:</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+  <span style="color:#f92672">&lt;ServerGarbageCollection&gt;</span>false<span style="color:#f92672">&lt;/ServerGarbageCollection&gt;</span>
+<span style="color:#f92672">&lt;/PropertyGroup&gt;</span></code></pre></div>
+<p>Most of the times, it is only after you have a working product that you start caring about performance and optimizations.</p>
+<p>That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in <em><strong>ASP.NET Core</strong></em>.</p>
+<p>During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment,
+I came across this great article on <a href="https://docs.microsoft.com/en-us/aspnet/core/performance/memory?view=aspnetcore-3.1">Memory Management &amp; GC</a>
+followed by two more elaborate investigations on containerized environments: <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/">Running with Server GC &ndash; Part 0</a>
+and <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/">Running with Server GC &ndash; Part 1</a>.</p>
+<p>As noted in the original article, there is <strong>Workstation GC</strong> and <strong>Server GC</strong>. The latter, is enabled by default and requires <code>&gt; 1 CPU cores</code> to operate whilst the former, assumes that the application is running in a desktop environment, and is optimized against it.</p>
+<p>In addition, quoting from <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/">Running with Server GC &ndash; Part 0</a>:</p>
+<blockquote>
+<p>First of all, as many of you already knew, Server GC was designed with the assumption that the process using Server GC is the dominant process on the machine. By default it uses as many heaps as there are # of processors on the machine. Technologies like asp.net use Server GC by default. And this is a great choice when your asp.net process is indeed the dominant process which had often been the case for many years. But as folks start to put these processes into containers with low/lower memory limits, it doesn’t bode well if for example your container only uses 200mb of memory and happening to be running on a machine with 48 procs – it doesn’t make sense to have 48 heaps to just collect 200mb.</p>
+</blockquote>
+<p>By now, it should be pretty obvious where I am getting to, and that&rsquo;s nothing else, other than you might have been using the wrong configuration all along.</p>
+<p>If your deployment, like in our case, is in a containerized environment with memory-constraints,
+it might be a good idea to investigate whether Workstation GC suits your case best.</p>
+<p><em>Take notice though</em>.
+There is no definite answer here, but rather you have to figure out whether CPU or memory utilization is your greatest concern.</p>
+<p>You can start by profiling your application and switching between Workstation GC and Server GC with the <em>property</em> provided
+in the snippet above.</p>
+<p><em>PS: If you have time, make sure to read the articles for more elaborate explanations.</em></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mkanakis.github.io/tags/asp.net-core">asp.net core</a></span><span class="tag"><a href="https://mkanakis.github.io/tags/docker">docker</a></span><span class="tag"><a href="https://mkanakis.github.io/tags/deployment">deployment</a></span><span class="tag"><a href="https://mkanakis.github.io/tags/devops">devops</a></span><span class="tag"><a href="https://mkanakis.github.io/tags/optimizations">optimizations</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>424 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21-05-2020 22:36 &#43;0200</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Read other posts</span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://mkanakis.github.io/posts/2_jwtauthentication_signalr_identityserver/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">JWT Authentication with SignalR and IdentityServer4</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+            <span>All rights reserved.</span>
+            <span> <a href="https://mkanakis.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            
+            <span>Theme from <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

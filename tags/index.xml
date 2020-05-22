@@ -7,9 +7,82 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Fri, 22 May 2020 14:01:29 +0200</lastBuildDate>
     
 	<atom:link href="https://mkanakis.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>asp.net core</title>
+      <link>https://mkanakis.github.io/tags/asp.net-core/</link>
+      <pubDate>Fri, 22 May 2020 14:01:29 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/asp.net-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>development</title>
+      <link>https://mkanakis.github.io/tags/development/</link>
+      <pubDate>Fri, 22 May 2020 14:01:29 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>identityserver4</title>
+      <link>https://mkanakis.github.io/tags/identityserver4/</link>
+      <pubDate>Fri, 22 May 2020 14:01:29 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/identityserver4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web api</title>
+      <link>https://mkanakis.github.io/tags/web-api/</link>
+      <pubDate>Fri, 22 May 2020 14:01:29 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/web-api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deployment</title>
+      <link>https://mkanakis.github.io/tags/deployment/</link>
+      <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>devops</title>
+      <link>https://mkanakis.github.io/tags/devops/</link>
+      <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://mkanakis.github.io/tags/docker/</link>
+      <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>optimizations</title>
+      <link>https://mkanakis.github.io/tags/optimizations/</link>
+      <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/tags/optimizations/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

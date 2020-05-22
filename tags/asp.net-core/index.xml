@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Marios Kanakis</title>
-    <link>https://mkanakis.github.io/</link>
-    <description>Recent content on Marios Kanakis</description>
+    <title>asp.net core on Marios Kanakis</title>
+    <link>https://mkanakis.github.io/tags/asp.net-core/</link>
+    <description>Recent content in asp.net core on Marios Kanakis</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Thu, 21 May 2020 12:50:20 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 14:01:29 +0200</lastBuildDate>
     
-	<atom:link href="https://mkanakis.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mkanakis.github.io/tags/asp.net-core/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -34,19 +34,6 @@ In any case, the simplest one I have come across with is the following:
       <description>TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &amp;lt;PropertyGroup&amp;gt; &amp;lt;ServerGarbageCollection&amp;gt;false&amp;lt;/ServerGarbageCollection&amp;gt; &amp;lt;/PropertyGroup&amp;gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
 That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
 During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp;amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &amp;ndash; Part 0 and Running with Server GC &amp;ndash; Part 1.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://mkanakis.github.io/about/</link>
-      <pubDate>Thu, 21 May 2020 12:50:20 +0200</pubDate>
-      
-      <guid>https://mkanakis.github.io/about/</guid>
-      <description>It is quite some time since I first decided to start my own blog with a focus on software development, involving code snippets, short tutorials, and discussions around daily programming madness.
-I am always open to discussions, innovative ideas and potential collaborations. Feel free to ping me anytime!
-For a complete CV, scroll down at the bottom of the page.
-Enjoy!
-Education I am currently finishing up my MSc in Computer Science at Vrije Universiteit van Amsterdam (VU) &amp;amp; Universiteit van Amsterdam (UvA) at Amsterdam, the Netherlands.</description>
     </item>
     
   </channel>

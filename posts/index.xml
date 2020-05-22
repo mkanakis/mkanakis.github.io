@@ -1,0 +1,125 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Marios Kanakis</title>
+        <link>https://mkanakis.github.io/posts/</link>
+        <description>Recent content in Posts on Marios Kanakis</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>All rights reserved.</copyright>
+        <lastBuildDate>Fri, 22 May 2020 14:01:29 +0200</lastBuildDate>
+        <atom:link href="https://mkanakis.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>JWT Authentication with SignalR and IdentityServer4</title>
+            <link>https://mkanakis.github.io/posts/2_jwtauthentication_signalr_identityserver/</link>
+            <pubDate>Fri, 22 May 2020 14:01:29 +0200</pubDate>
+            
+            <guid>https://mkanakis.github.io/posts/2_jwtauthentication_signalr_identityserver/</guid>
+            <description>If you ever worked with SignalR and IdentityServer4, you probably did some &amp;ldquo;googling&amp;rdquo; around to figure how the heck JWT authentication works.
+Especially since, the token might not be anymore in the request&amp;rsquo;s &amp;lsquo;Authentication&amp;rsquo; attribute, and with SignalR&amp;rsquo;s preference to WebSocket and fallback transport options.
+Maybe you found a lot of answers, maybe not.
+In any case, the simplest one I have come across with is the following:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23  services.</description>
+            <content type="html"><![CDATA[<p>If you ever worked with <a href="https://dotnet.microsoft.com/apps/aspnet/signalr">SignalR</a> and <a href="https://identityserver4.readthedocs.io/en/latest/">IdentityServer4</a>, you probably did some &ldquo;googling&rdquo; around
+to figure how the heck JWT authentication works.</p>
+<p>Especially since, the token might not be anymore in the request&rsquo;s &lsquo;Authentication&rsquo; attribute,
+and with SignalR&rsquo;s preference to WebSocket and fallback transport options.</p>
+<p>Maybe you found a lot of answers, maybe not.</p>
+<p>In any case, the simplest one I have come across with is the following:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+    .AddIdentityServerAuthentication(options =&gt;
+    {
+        <span style="color:#75715e">// base-address of your identityserver
+</span><span style="color:#75715e"></span>        options.Authority = Configuration[<span style="color:#e6db74">&#34;IdentityServer:Url&#34;</span>];
+
+        <span style="color:#75715e">// name of the API resource
+</span><span style="color:#75715e"></span>        options.ApiName = Configuration[<span style="color:#e6db74">&#34;IdentityServer:APIName&#34;</span>];
+        options.ApiSecret = Configuration[<span style="color:#e6db74">&#34;IdentityServer:APISecret&#34;</span>];
+
+        options.EnableCaching = <span style="color:#66d9ef">true</span>;
+        options.CacheDuration = TimeSpan.FromMinutes(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// that&#39;s the default
+</span><span style="color:#75715e"></span>
+        options.RequireHttpsMetadata = Convert.ToBoolean(Configuration[<span style="color:#e6db74">&#34;IdentityServer:RequireHttpsMetadata&#34;</span>]);
+
+        <span style="color:#75715e">// For SignalR
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#75715e"></span>        options.TokenRetriever = <span style="color:#66d9ef">new</span> Func&lt;HttpRequest, <span style="color:#66d9ef">string</span>&gt;(req =&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        {
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#66d9ef">var</span> fromHeader = TokenRetrieval.FromAuthorizationHeader();
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#66d9ef">var</span> fromQuery = TokenRetrieval.FromQueryString();
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#66d9ef">return</span> fromHeader(req) ?? fromQuery(req);
+</span><span style="display:block;width:100%;background-color:#3c3d38">        });
+</span>    }
+</code></pre></td></tr></table>
+</div>
+</div><p>The snippet is originally from <a href="https://stackoverflow.com/questions/55925741/signalr-using-identityserver-bearer-wont-receive-any-jwtbearerevents-from-hub">here</a>
+and has been slighlty modified to my use-case.</p>
+<p>Pay attention to lines <em>17-22</em> where <code>TokenRetriever</code> is specified to get the token either from the Header or the Query
+(also based on client-side implementation of SignalR).</p>
+<p><em>PS: This works as intended with ASP.NET Core 3.0</em></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>ASP.NET Core garbage collection: Deployment in containerized environments</title>
+            <link>https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/</link>
+            <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+            
+            <guid>https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/</guid>
+            <description>TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &amp;lt;PropertyGroup&amp;gt; &amp;lt;ServerGarbageCollection&amp;gt;false&amp;lt;/ServerGarbageCollection&amp;gt; &amp;lt;/PropertyGroup&amp;gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
+That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
+During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp;amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &amp;ndash; Part 0 and Running with Server GC &amp;ndash; Part 1.</description>
+            <content type="html"><![CDATA[<h5 id="tldr-in-containerized-environments-try-disabling-servergarbagecollection-and-check-whether-there-is-a-notable-performance-boost-to-do-so-alter-your-project-file-with-the-following">TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following:</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+  <span style="color:#f92672">&lt;ServerGarbageCollection&gt;</span>false<span style="color:#f92672">&lt;/ServerGarbageCollection&gt;</span>
+<span style="color:#f92672">&lt;/PropertyGroup&gt;</span></code></pre></div>
+<p>Most of the times, it is only after you have a working product that you start caring about performance and optimizations.</p>
+<p>That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in <em><strong>ASP.NET Core</strong></em>.</p>
+<p>During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment,
+I came across this great article on <a href="https://docs.microsoft.com/en-us/aspnet/core/performance/memory?view=aspnetcore-3.1">Memory Management &amp; GC</a>
+followed by two more elaborate investigations on containerized environments: <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/">Running with Server GC &ndash; Part 0</a>
+and <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/">Running with Server GC &ndash; Part 1</a>.</p>
+<p>As noted in the original article, there is <strong>Workstation GC</strong> and <strong>Server GC</strong>. The latter, is enabled by default and requires <code>&gt; 1 CPU cores</code> to operate whilst the former, assumes that the application is running in a desktop environment, and is optimized against it.</p>
+<p>In addition, quoting from <a href="https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/">Running with Server GC &ndash; Part 0</a>:</p>
+<blockquote>
+<p>First of all, as many of you already knew, Server GC was designed with the assumption that the process using Server GC is the dominant process on the machine. By default it uses as many heaps as there are # of processors on the machine. Technologies like asp.net use Server GC by default. And this is a great choice when your asp.net process is indeed the dominant process which had often been the case for many years. But as folks start to put these processes into containers with low/lower memory limits, it doesn’t bode well if for example your container only uses 200mb of memory and happening to be running on a machine with 48 procs – it doesn’t make sense to have 48 heaps to just collect 200mb.</p>
+</blockquote>
+<p>By now, it should be pretty obvious where I am getting to, and that&rsquo;s nothing else, other than you might have been using the wrong configuration all along.</p>
+<p>If your deployment, like in our case, is in a containerized environment with memory-constraints,
+it might be a good idea to investigate whether Workstation GC suits your case best.</p>
+<p><em>Take notice though</em>.
+There is no definite answer here, but rather you have to figure out whether CPU or memory utilization is your greatest concern.</p>
+<p>You can start by profiling your application and switching between Workstation GC and Server GC with the <em>property</em> provided
+in the snippet above.</p>
+<p><em>PS: If you have time, make sure to read the articles for more elaborate explanations.</em></p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

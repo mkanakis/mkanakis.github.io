@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>devops on Marios Kanakis</title>
+    <link>https://mkanakis.github.io/tags/devops/</link>
+    <description>Recent content in devops on Marios Kanakis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 21 May 2020 22:36:10 +0200</lastBuildDate>
+    
+	<atom:link href="https://mkanakis.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ASP.NET Core garbage collection: Deployment in containerized environments</title>
+      <link>https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/</link>
+      <pubDate>Thu, 21 May 2020 22:36:10 +0200</pubDate>
+      
+      <guid>https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/</guid>
+      <description>TL;DR: In containerized environments, try disabling ServerGarbageCollection and check whether there is a notable performance boost. To do so, alter your project file with the following: &amp;lt;PropertyGroup&amp;gt; &amp;lt;ServerGarbageCollection&amp;gt;false&amp;lt;/ServerGarbageCollection&amp;gt; &amp;lt;/PropertyGroup&amp;gt; Most of the times, it is only after you have a working product that you start caring about performance and optimizations.
+That being said, I figured out, only recently, that there are two Garbage Collection (GC) modes in ASP.NET Core.
+During the investigation of some memory-leaks and sudden upwards memory bursts in our Kubernetes deployment, I came across this great article on Memory Management &amp;amp; GC followed by two more elaborate investigations on containerized environments: Running with Server GC &amp;ndash; Part 0 and Running with Server GC &amp;ndash; Part 1.</description>
+    </item>
+    
+  </channel>
+</rss>

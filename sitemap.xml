@@ -3,6 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mkanakis.github.io/tags/asp.net-core/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/development/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/identityserver4/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/posts/2_jwtauthentication_signalr_identityserver/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/posts/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/web-api/</loc>
+    <lastmod>2020-05-22T14:01:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/posts/1_dotnetcoregarbagecollection_deployment/</loc>
+    <lastmod>2020-05-21T22:36:10+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/deployment/</loc>
+    <lastmod>2020-05-21T22:36:10+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/devops/</loc>
+    <lastmod>2020-05-21T22:36:10+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/docker/</loc>
+    <lastmod>2020-05-21T22:36:10+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mkanakis.github.io/tags/optimizations/</loc>
+    <lastmod>2020-05-21T22:36:10+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mkanakis.github.io/about/</loc>
     <lastmod>2020-05-21T12:50:20+02:00</lastmod>
   </url>
@@ -13,7 +73,7 @@
   </url>
   
   <url>
-    <loc>https://mkanakis.github.io/tags/</loc>
+    <loc>https://mkanakis.github.io/categories/</loc>
   </url>
   
 </urlset>
