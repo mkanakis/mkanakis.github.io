@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Marios Kanakis</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Marios Kanakis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 21 May 2020 12:50:20 +0200</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>http://example.org/about/</link>
+      <pubDate>Thu, 21 May 2020 12:50:20 +0200</pubDate>
+      
+      <guid>http://example.org/about/</guid>
+      <description>It is quite some time since I first decided to start my own blog with a focus on software development, involving code snippets, short tutorials, and discussions around daily programming madness.
+I am always open to discussions, innovative ideas and potential collaborations. Feel free to ping me anytime!
+For a complete CV, scroll down at the bottom of the page.
+Enjoy!
+Education I am currently finishing up my MSc in Computer Science at Vrije Universiteit van Amsterdam (VU) &amp;amp; Universiteit van Amsterdam (UvA) at Amsterdam, the Netherlands.</description>
+    </item>
+    
+  </channel>
+</rss>
